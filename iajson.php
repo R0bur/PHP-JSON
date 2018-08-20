@@ -2,7 +2,6 @@
 /*====================================================*/
 /* Набор функций для разбора документов JSON.         */
 /* Автор: Игорь Сергеевич Орещенков, март 2017 г.     */
-/* Версия от 14.08.2018.                              */
 /* Среда разработки: PHP 5.6.23 + AkelPad 4.9.7       */
 /*====================================================*/
 require_once 'iaparser.php';
@@ -11,6 +10,10 @@ require_once 'iaparser.php';
 /* Вызов: $json - строка, содержащая JSON.                */
 /* Возврат: массив, содержащий декодированную информацию  */
 /*          или FALSE в случае ошибки.                    */
+/*--------------------------------------------------------*/
+/* Decode JSON string to PHP array.                       */
+/* Call: $json - the string containing JSON.              */
+/* Return: "keys-values" PHP array.                       */
 /*========================================================*/
 function iaJsonDecode (&$json) {
 	$SPACES = " \t\r\n";
@@ -31,14 +34,22 @@ function iaJsonDecode (&$json) {
 	endif;
 	return $a;
 }
-/*================================================*/
-/* Блок разбора JSON-массива.                     */
-/* Вызов: $json - строка, содержащая JSON.        */
-/*        $p    - номер текущей позиции в строке, */
-/*        $SPACES - пробельные символы,           */
-/*        $STRLEN - длина строки $json.           */
-/* Возврат: массив с декодированной информацией.  */
-/*================================================*/
+/*=================================================*/
+/* Блок разбора JSON-массива.                      */
+/* Вызов: $json - строка, содержащая JSON.         */
+/*        $p    - номер текущей позиции в строке,  */
+/*        $SPACES - пробельные символы,            */
+/*        $STRLEN - длина строки $json.            */
+/* Возврат: массив с декодированной информацией.   */
+/*-------------------------------------------------*/
+/* Subroutine for a JSON-array "[...]" parsing.    */
+/* Call: $json - the string containing JSON,       */
+/*       $p    - the number of starting position   */
+/*               in the string $json,              */
+/*       $SPACES - the string of space characters, */
+/*       $STRLEN - the length of the string $json. */
+/* Return: array of the decoded JSON-array.        */
+/*=================================================*/
 function iaJsonArray (&$json, &$p, $SPACES, $STRLEN) {
 	$a = array ();
 	$p = iaSkipOver ($json, $SPACES, $p + 1, $STRLEN);
@@ -76,14 +87,22 @@ function iaJsonArray (&$json, &$p, $SPACES, $STRLEN) {
 	endif;
 	return $a;
 }
-/*================================================*/
-/* Блок разбора JSON-объекта.                     */
-/* Вызов: $json - строка, содержащая JSON.        */
-/*        $p    - номер текущей позиции в строке, */
-/*        $SPACES - пробельные символы,           */
-/*        $STRLEN - длина строки $json.           */
-/* Возврат: массив с декодированной информацией.  */
-/*================================================*/
+/*=================================================*/
+/* Блок разбора JSON-объекта.                      */
+/* Вызов: $json - строка, содержащая JSON.         */
+/*        $p    - номер текущей позиции в строке,  */
+/*        $SPACES - пробельные символы,            */
+/*        $STRLEN - длина строки $json.            */
+/* Возврат: массив с декодированной информацией.   */
+/*-------------------------------------------------*/
+/* Subroutine for a JSON-object "{...}" parsing.   */
+/* Call: $json - the string containing JSON,       */
+/*       $p    - the number of starting position   */
+/*               in the string $json,              */
+/*       $SPACES - the string of space characters, */
+/*       $STRLEN - the length of the string $json. */
+/* Return: array of the decoded JSON-object.       */
+/*=================================================*/
 function iaJsonObject (&$json, &$p, $SPACES, $STRLEN) {
 	$a = array ();
 	$p = iaSkipOver ($json, $SPACES, $p + 1, $STRLEN);
@@ -145,6 +164,16 @@ function iaJsonObject (&$json, &$p, $SPACES, $STRLEN) {
 /*          значения скаляра допущена ошибка.          */
 /* После возврата текущим становится символ, непосред- */
 /* ственно следующий после скаляра.                    */
+/*-----------------------------------------------------*/
+/* Subroutine for a JSON-scalar parsing.               */
+/* Call: $c - the first character of the JSON-scalar,  */
+/*       $EOW - scalar terminators,                    */
+/*       $json - the string containing JSON,           */
+/*       $p    - the number of starting position       */
+/*               in the string $json,                  */
+/*       $SPACES - the string of space characters,     */
+/*       $STRLEN - the length of the string $json.     */
+/* Return: value of the decoded JSON-scalar.           */
 /*=====================================================*/
 function iaJsonScalar ($c, $EOW, &$json, &$p, $SPACES, $STRLEN) {
 	if ($c == '"' or $c == '\''):
