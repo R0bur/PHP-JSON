@@ -28,7 +28,8 @@ $array = iaJsonDecode ($json);
 	field4: {a: 1, b: 2, c: 3, d: 4},
 	field5: "<img src=\"photo.jpg\">",
 	field6: '\'Escaped single quotes\''
-}```
+}
+```
 
 *Resulting PHP array:*
 
@@ -55,5 +56,6 @@ Array
 
     [field5] => <img src="photo.jpg">
     [field6] => 'Escaped single quotes'
-)```
+)
+```
 Please look at 'demo.php' and 'demo.json' for reference.
