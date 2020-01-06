@@ -1,6 +1,6 @@
 # PHP-JSON
 PHP-module for parsing JSON
-Author: Ihar Areshchankau, 2017.
+Author: Ihar Areshchankau, 2017-2019.
 
 Mailto: r0bur@tut.by
 
@@ -25,9 +25,10 @@ $array = iaJsonDecode ($json);
 	field1: 1234.5678,
 	field2: "String value",
 	field3: [1, 2, 3, 4],
-	field4: {a: 1, b: 2, c: 3, d: 4}
-}
-```
+	field4: {a: 1, b: 2, c: 3, d: 4},
+	field5: "<img src=\"photo.jpg\">",
+	field6: '\'Escaped single quotes\''
+}```
 
 *Resulting PHP array:*
 
@@ -43,6 +44,7 @@ Array
             [2] => 3
             [3] => 4
         )
+
     [field4] => Array
         (
             [a] => 1
@@ -50,6 +52,9 @@ Array
             [c] => 3
             [d] => 4
         )
+
+    [field5] => <img src="photo.jpg">
+    [field6] => 'Escaped single quotes'
 )
 ```
 Please look at 'demo.php' and 'demo.json' for reference.
