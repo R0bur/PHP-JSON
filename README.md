@@ -55,6 +55,5 @@ Array
 
     [field5] => <img src="photo.jpg">
     [field6] => 'Escaped single quotes'
-)
-```
+)```
 Please look at 'demo.php' and 'demo.json' for reference.
