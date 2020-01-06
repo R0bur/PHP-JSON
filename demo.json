@@ -2,5 +2,7 @@
 	field1: 1234.5678,
 	field2: "String value",
 	field3: [1, 2, 3, 4],
-	field4: {a: 1, b: 2, c: 3, d: 4}
+	field4: {a: 1, b: 2, c: 3, d: 4},
+	field5: "<img src=\"photo.jpg\">",
+	field6: '\'Escaped single quotes\''
 }
