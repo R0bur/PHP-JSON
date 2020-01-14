@@ -183,7 +183,7 @@ function iaJsonScalar ($c, $EOW, &$json, &$p, $SPACES, $STRLEN) {
 			$p = $p + 1;
 			$p = iaSkipTo ($json, $c, $p, $STRLEN);
 		} while ($p !== FALSE and $json[$p - 1] == '\\');
-		$v = $p !== FALSE? stripslashes (substr ($json, $p1, $p - $p1)): FALSE;
+		$v = $p !== FALSE? stripslashes (strtr (substr ($json, $p1, $p - $p1), array ('\b' => "\b", '\f' => "\f", '\n' => "\n", '\r' => "\r", '\t' => "\t"))): FALSE;
 		$p++;
 	else:
 		/* Значение скаляра записано без кавычек. */
