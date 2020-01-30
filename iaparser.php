@@ -29,7 +29,7 @@ function iaSkipOver (&$s, $t, $p = 0, $l = FALSE)
 		$l = strlen ($s);
 	endif;
 	if ($p !== FALSE):
-		while ($p < $l and strpos ($t, $s{$p}) !== FALSE):
+		while ($p < $l and strpos ($t, $s[$p]) !== FALSE):
 			$p++;
 		endwhile;
 		if ($p >= $l):
@@ -60,7 +60,7 @@ function iaSkipOver (&$s, $t, $p = 0, $l = FALSE)
 function iaSkipTo (&$s, $t, $p = 0, $l = FALSE) {
 	$l = strlen ($s);
 	if ($p !== FALSE):
-		while ($p < $l and strpos ($t, $s{$p}) === FALSE):
+		while ($p < $l and strpos ($t, $s[$p]) === FALSE):
 			$p++;
 		endwhile;
 		if ($p >= $l):

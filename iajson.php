@@ -23,7 +23,7 @@ function iaJsonDecode (&$json) {
 	/* Запуск модуля разбора в зависимости от текущего контекста. */
 	$p = iaSkipOver ($json, $SPACES, $p, $STRLEN);
 	if ($p !== FALSE):
-		switch ($json{$p}):
+		switch ($json[$p]):
 			case '[': // массив
 				$a = iaJsonArray ($json, $p, $SPACES, $STRLEN);
 				break;
@@ -53,7 +53,7 @@ function iaJsonDecode (&$json) {
 function iaJsonArray (&$json, &$p, $SPACES, $STRLEN) {
 	$a = array ();
 	$p = iaSkipOver ($json, $SPACES, $p + 1, $STRLEN);
-	$c = ($p !== FALSE? $json{$p}: '');
+	$c = ($p !== FALSE? $json[$p]: '');
 	while ($p !== FALSE and $c !== ']'):
 		/* Декодирование элемента массива. */
 		switch ($c):
@@ -70,10 +70,10 @@ function iaJsonArray (&$json, &$p, $SPACES, $STRLEN) {
 		if ($r !== FALSE):
 			$a[] = $r;
 			$p = iaSkipOver ($json, $SPACES, $p, $STRLEN);
-			$c = ($p !== FALSE? $json{$p}: '');
+			$c = ($p !== FALSE? $json[$p]: '');
 			if ($c == ','):
 				$p = iaSkipOver ($json, $SPACES, $p + 1, $STRLEN);
-				$c = ($p !== FALSE? $json{$p}: '');
+				$c = ($p !== FALSE? $json[$p]: '');
 			endif;
 		else:
 			$p = FALSE;
@@ -106,15 +106,15 @@ function iaJsonArray (&$json, &$p, $SPACES, $STRLEN) {
 function iaJsonObject (&$json, &$p, $SPACES, $STRLEN) {
 	$a = array ();
 	$p = iaSkipOver ($json, $SPACES, $p + 1, $STRLEN);
-	$c = ($p !== FALSE? $json{$p}: '');
+	$c = ($p !== FALSE? $json[$p]: '');
 	while ($p !== FALSE and $c !== '}'):
 		$k = iaJsonScalar ($c, ':', $json, $p, $SPACES, $STRLEN);
-		$c = $k !== FALSE? $json{$p}: '';
+		$c = $k !== FALSE? $json[$p]: '';
 		if ($c == ':'):
 			$p = iaSkipOver ($json, $SPACES, $p + 1, $STRLEN);
 			if ($p !== FALSE):
 				/* Декодирование значения свойства объекта. */
-				$c = $json{$p};
+				$c = $json[$p];
 				switch ($c):
 					case '[': // массив
 						$r = iaJsonArray ($json, $p, $SPACES, $STRLEN);
@@ -134,10 +134,10 @@ function iaJsonObject (&$json, &$p, $SPACES, $STRLEN) {
 			endif;
 			if ($p !== FALSE):
 				$p = iaSkipOver ($json, $SPACES, $p, $STRLEN);
-				$c = ($p !== FALSE? $json{$p}: '');
+				$c = ($p !== FALSE? $json[$p]: '');
 				if ($c == ','):
 					$p = iaSkipOver ($json, $SPACES, $p + 1, $STRLEN);
-					$c = ($p !== FALSE? $json{$p}: '');
+					$c = ($p !== FALSE? $json[$p]: '');
 				endif;
 			endif;
 		else:
